@@ -1,0 +1,27 @@
+name: Validate conference data
+
+# Catches malformed YAML in pull requests before it can reach the live site.
+# (The site also validates client-side and shows a readable error instead of
+# blanking, but failing the PR gives contributors faster feedback.)
+
+on:
+  pull_request:
+    paths:
+      - "data/**"
+      - "scripts/**"
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "scripts/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - run: python scripts/validate_yaml.py

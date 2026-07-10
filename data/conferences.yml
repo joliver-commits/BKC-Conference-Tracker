@@ -1,0 +1,415 @@
+# =============================================================================
+# BKC AI Conference & Convening Deadlines — single source of truth
+# =============================================================================
+# Every venue on the site lives in this file. To add or update one, edit this
+# file and open a pull request. Full schema + a copy-pasteable template:
+# CONTRIBUTING.md.
+#
+# Ground rules:
+#   * NEVER guess a deadline. If you can't verify it on the venue's own site,
+#     write date: "TBA" — the site shows the venue in a "Deadline TBA" section.
+#   * Dates: "YYYY-MM-DD HH:mm" (24h) or "YYYY-MM-DD" (treated as 23:59).
+#   * timezone: "AoE" (Anywhere on Earth, UTC-12), "UTC", or an IANA name
+#     like "America/New_York".
+#   * Put "# VERIFY" next to any date a human should double-check before
+#     relying on it.
+#
+# Dates below were last checked against venue sites on 2026-07-10.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# ACADEMIC CONFERENCES — AI ethics, fairness, HCI, computational social science
+# -----------------------------------------------------------------------------
+
+- name: "FAccT 2027"
+  full_name: "ACM Conference on Fairness, Accountability, and Transparency"
+  link: "https://facctconference.org/2027/cfp.html"
+  location: "TBA"
+  deadlines:
+    - label: "Abstract"
+      date: "2026-10-27 23:59"   # VERIFY — read from CFP page via search cache; confirm on facctconference.org
+      timezone: "AoE"
+    - label: "Full paper"
+      date: "2026-11-03 23:59"   # VERIFY — read from CFP page via search cache; confirm on facctconference.org
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "non-archival"]
+  topics: ["ai-ethics-society", "ai-governance-policy", "safety-security"]
+  disciplines: ["cs", "law", "social-science", "interdisciplinary"]
+  note: "Submission system opens October 2026. Non-archival option available."
+
+- name: "AIES 2026"
+  full_name: "AAAI/ACM Conference on AI, Ethics, and Society"
+  link: "https://www.aies-conference.com/"
+  location: "Malmö, Sweden"
+  event_start: "2026-10-12"
+  event_end: "2026-10-14"
+  deadlines:
+    - label: "Abstract"
+      date: "2026-05-14 23:59"
+      timezone: "AoE"
+    - label: "Full paper"
+      date: "2026-05-21 23:59"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers"]
+  topics: ["ai-ethics-society", "ai-governance-policy"]
+  disciplines: ["cs", "policy", "social-science", "humanities", "interdisciplinary"]
+  note: "2026 deadlines have passed. AIES 2027 CFP is expected in spring 2027 (deadline typically March–May)."
+
+- name: "CHI 2027"
+  full_name: "ACM Conference on Human Factors in Computing Systems"
+  link: "https://chi2027.acm.org/"
+  location: "Pittsburgh, PA, USA"
+  event_start: "2027-05-10"
+  event_end: "2027-05-14"
+  deadlines:
+    - label: "Papers"
+      date: "2026-09-10 23:59"
+      timezone: "AoE"
+    - label: "Papers — revise & resubmit"
+      date: "2026-12-03 23:59"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "extended abstracts", "workshops"]
+  topics: ["human-ai-interaction", "ai-relationships-companions"]
+  disciplines: ["cs", "social-science", "interdisciplinary"]
+  note: "Single full-submission deadline (no separate abstract deadline)."
+
+- name: "CSCW (rolling)"
+  full_name: "ACM Conference on Computer-Supported Cooperative Work and Social Computing"
+  link: "https://cscw.acm.org/rolling.html"
+  location: "Varies by year"
+  deadlines: []
+  venue_type: "conference"
+  submission_types: ["papers", "posters", "workshops"]
+  topics: ["human-ai-interaction", "platform-internet-governance", "media-communication"]
+  disciplines: ["cs", "social-science", "interdisciplinary"]
+  note: "From CSCW 2027 onward there are no fixed deadlines — submit to PACM HCI any time; reviewing is continuous."
+
+- name: "ICWSM 2027"
+  full_name: "International AAAI Conference on Web and Social Media"
+  link: "https://www.icwsm.org/"
+  location: "Edinburgh, UK"
+  deadlines:
+    - label: "Full papers — round 2"
+      date: "2026-09-15 23:59"
+      timezone: "AoE"
+    - label: "Full papers + posters/demos/datasets — round 3"
+      date: "2027-01-15 23:59"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "posters", "demos"]
+  topics: ["media-communication", "platform-internet-governance"]
+  disciplines: ["cs", "social-science"]
+  note: "Three submission rounds per cycle; the May 2026 round has passed. Conference expected June 2027."
+
+- name: "AoIR 2027"
+  full_name: "Association of Internet Researchers Annual Conference"
+  link: "https://aoir.org/conferences/"
+  location: "Europe (host TBA)"
+  deadlines:
+    - label: "Submissions"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "panels", "non-archival"]
+  topics: ["platform-internet-governance", "media-communication", "digital-humanities"]
+  disciplines: ["social-science", "humanities", "interdisciplinary"]
+  note: "Conference expected October 2027. CFP deadline is typically March 1 of the conference year; watch aoir.org from December."
+
+- name: "IC2S2 2026"
+  full_name: "International Conference on Computational Social Science"
+  link: "https://ic2s2-2026.org/"
+  location: "Burlington, VT, USA"
+  event_start: "2026-07-28"
+  event_end: "2026-07-31"
+  deadlines: []
+  venue_type: "conference"
+  submission_types: ["extended abstracts", "non-archival"]
+  topics: ["media-communication", "ai-ethics-society"]
+  disciplines: ["cs", "social-science", "interdisciplinary"]
+  note: "2026 submissions closed. IC2S2 2027 host not yet announced; abstract deadline typically falls in February."
+
+- name: "EAAMO 2026"
+  full_name: "ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization"
+  link: "https://conference2026.eaamo.org/"
+  location: "Munich, Germany"
+  event_start: "2026-11-05"
+  event_end: "2026-11-07"
+  deadlines:
+    - label: "Abstract"
+      date: "2026-05-08 23:59"
+      timezone: "AoE"
+    - label: "Full paper"
+      date: "2026-05-15 23:59"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "non-archival"]
+  topics: ["ai-ethics-society", "ai-governance-policy"]
+  disciplines: ["cs", "policy", "social-science", "interdisciplinary"]
+  note: "2026 deadlines have passed; EAAMO 2027 CFP expected ~spring 2027."
+
+- name: "WWW 2027"
+  full_name: "The Web Conference (International World Wide Web Conference)"
+  link: "https://acmweb2027.org/"
+  location: "Dublin, Ireland"
+  event_start: "2027-05-10"
+  event_end: "2027-05-14"
+  deadlines:
+    - label: "Research-track abstract"
+      date: "TBA"
+      timezone: "AoE"
+    - label: "Research-track full paper"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "posters", "tutorials", "workshops"]
+  topics: ["platform-internet-governance", "media-communication", "safety-security"]
+  disciplines: ["cs", "interdisciplinary"]
+  note: "Research-track deadlines not yet published; historically abstracts are due early October, full papers mid-October of the preceding year."
+
+- name: "NeurIPS 2026 Evaluations & Datasets"
+  full_name: "NeurIPS Evaluations & Datasets Track (formerly Datasets & Benchmarks)"
+  link: "https://neurips.cc/Conferences/2026/CallForEvaluationsDatasets"
+  location: "See neurips.cc"
+  event_start: "2026-12-06"   # VERIFY — NeurIPS 2026 main-conference dates; confirm on neurips.cc
+  event_end: "2026-12-12"     # VERIFY
+  deadlines:
+    - label: "Abstract"
+      date: "2026-05-04 23:59"
+      timezone: "AoE"
+    - label: "Full paper + data/code"
+      date: "2026-05-06 23:59"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers"]
+  topics: ["ai-ethics-society", "safety-security"]
+  disciplines: ["cs"]
+  note: "2026 deadlines have passed. The NeurIPS 2027 cycle typically has abstract/paper deadlines in mid-May 2027."
+
+- name: "ACM CS&Law 2027"
+  full_name: "ACM Symposium on Computer Science and Law"
+  link: "https://computersciencelaw.org/"
+  location: "TBA"
+  deadlines:
+    - label: "Submissions"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "symposium"
+  submission_types: ["papers", "non-archival"]
+  topics: ["law-regulation", "ai-governance-policy", "privacy-surveillance"]
+  disciplines: ["cs", "law", "interdisciplinary"]
+  note: "2027 edition not yet announced. Pattern from the 2026 cycle: submissions open early September with an early-fall deadline for a March symposium."
+
+- name: "CPDP 2027"
+  full_name: "Computers, Privacy and Data Protection Conference (20th anniversary edition)"
+  link: "https://www.cpdpconferences.org/"
+  location: "Brussels, Belgium"
+  event_start: "2027-03-08"
+  event_end: "2027-03-11"
+  deadlines:
+    - label: "All calls (panels, workshops, papers)"
+      date: "TBA"
+      timezone: "Europe/Brussels"
+  venue_type: "conference"
+  submission_types: ["panels", "papers", "workshops"]
+  topics: ["privacy-surveillance", "law-regulation", "ai-governance-policy"]
+  disciplines: ["law", "policy", "interdisciplinary"]
+  note: "Official announcement: all CPDP 2027 calls open mid-September 2026 and close in November 2026 (exact day TBA)."
+
+- name: "SOUPS 2027"
+  full_name: "Symposium on Usable Privacy and Security"
+  link: "https://www.usenix.org/conferences"
+  location: "TBA"
+  deadlines:
+    - label: "Papers"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "symposium"
+  submission_types: ["papers", "posters"]
+  topics: ["privacy-surveillance", "safety-security", "human-ai-interaction"]
+  disciplines: ["cs", "social-science"]
+  note: "SOUPS 2026 (Hannover, Aug 2026) submissions closed in February 2026; the 2027 paper deadline is expected in February 2027."
+
+- name: "ACM HCOMP 2026"
+  full_name: "ACM Conference on Human Computation and Crowdsourcing (co-located with ACM Collective Intelligence)"
+  link: "https://hcomp.acm.org/2026/"
+  location: "Virginia Tech Institute for Advanced Computing, near Washington, DC"
+  event_start: "2026-09-27"
+  event_end: "2026-09-30"
+  deadlines:
+    - label: "Workshop papers"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers", "demos", "non-archival"]
+  topics: ["human-ai-interaction", "ai-ethics-society"]
+  disciplines: ["cs", "social-science"]
+  note: "Main-track deadlines passed (June 2026). Individual workshop deadlines fall roughly July 23–30, 2026 — check each workshop's CFP."
+
+
+# -----------------------------------------------------------------------------
+# LAW & POLICY VENUES
+# -----------------------------------------------------------------------------
+
+- name: "PLSC 2027"
+  full_name: "Privacy Law Scholars Conference"
+  link: "https://privacyscholars.org/"
+  location: "TBA"
+  deadlines:
+    - label: "Paper submissions"
+      date: "TBA"
+      timezone: "America/Los_Angeles"
+  venue_type: "conference"
+  submission_types: ["papers", "non-archival"]
+  topics: ["privacy-surveillance", "law-regulation"]
+  disciplines: ["law", "policy"]
+  note: "Workshop-style, non-archival. The deadline is typically mid-to-late January (PLSC 2026: Jan 20, 11:59 PM Pacific); watch the site from November."
+
+- name: "TPRC 55 (2027)"
+  full_name: "Research Conference on Communications, Information and Internet Policy"
+  link: "https://www.tprcweb.com/"
+  location: "Washington, DC, USA"
+  deadlines:
+    - label: "Abstracts"
+      date: "TBA"
+      timezone: "America/New_York"
+  venue_type: "conference"
+  submission_types: ["papers", "panels", "posters"]
+  topics: ["platform-internet-governance", "law-regulation", "ai-governance-policy"]
+  disciplines: ["policy", "law", "social-science", "interdisciplinary"]
+  note: "TPRC 54 runs Sep 25–26, 2026 (its abstract window, Feb 15–Mar 15 2026, has passed). TPRC 55 abstracts expected mid-February to mid-March 2027."
+
+- name: "We Robot 2027"
+  full_name: "We Robot — Conference on Robotics Law and Policy"
+  link: "https://robots.law.miami.edu/"
+  location: "TBA"
+  deadlines:
+    - label: "Abstracts"
+      date: "TBA"
+      timezone: "America/New_York"
+  venue_type: "conference"
+  submission_types: ["papers", "demos", "non-archival"]
+  topics: ["law-regulation", "ai-governance-policy", "human-ai-interaction"]
+  disciplines: ["law", "policy", "cs", "interdisciplinary"]
+  note: "2027 host not yet announced. The CFP typically drops in the fall with an abstract deadline between November and January."
+
+- name: "Yale ISP convenings"
+  full_name: "Yale Information Society Project — conferences & convenings"
+  link: "https://law.yale.edu/isp"
+  location: "New Haven, CT, USA"
+  deadlines: []
+  venue_type: "policy-convening"
+  submission_types: ["papers", "non-archival"]
+  topics: ["law-regulation", "platform-internet-governance", "media-communication"]
+  disciplines: ["law", "policy", "interdisciplinary"]
+  note: "No public conference CFP open as of July 2026; ISP posts event CFPs ad hoc (its fellowship call is separate). Watch the ISP events page."
+
+- name: "IAPP Global Privacy Summit 2027"
+  full_name: "IAPP Global Privacy Summit — speaking proposals"
+  link: "https://iapp.org/conference/iapp-global-summit"
+  location: "Washington, DC, USA"
+  event_start: "2027-03-30"
+  event_end: "2027-04-02"
+  deadlines:
+    - label: "Speaking proposals"
+      date: "2026-09-13"   # VERIFY — IAPP states "September 13"; the year 2026 is implied by the March 2027 event but confirm on iapp.org
+      timezone: "America/New_York"
+  venue_type: "policy-convening"
+  submission_types: ["proposals", "panels"]
+  topics: ["privacy-surveillance", "ai-governance-policy", "law-regulation"]
+  disciplines: ["law", "policy"]
+  note: "Proposals submitted via the IAPP speaker portal."
+
+- name: "Paris Peace Forum 2027"
+  full_name: "Paris Peace Forum — Call for Solutions"
+  link: "https://parispeaceforum.org/"
+  location: "Paris, France"
+  deadlines:
+    - label: "Call for Solutions"
+      date: "TBA"
+      timezone: "Europe/Paris"
+  venue_type: "policy-convening"
+  submission_types: ["proposals"]
+  topics: ["ai-governance-policy", "platform-internet-governance"]
+  disciplines: ["policy", "interdisciplinary"]
+  note: "The 2026 call closed May 25, 2026. Pattern: the call launches early April and closes late May; organizations (not individuals) apply. AI governance is a recurring track."
+
+
+# -----------------------------------------------------------------------------
+# WORKSHOPS & INTERDISCIPLINARY VENUES
+# -----------------------------------------------------------------------------
+# Workshop CFPs are announced per-cycle after each host conference publishes
+# its workshop list — keep these as placeholders and update each cycle.
+
+- name: "NeurIPS 2026 workshops (AI & society)"
+  full_name: "NeurIPS workshops on AI & society (e.g., regulatable ML, algorithmic fairness)"
+  link: "https://neurips.cc/"
+  location: "See neurips.cc"
+  deadlines:
+    - label: "Workshop papers"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "workshop"
+  submission_types: ["papers", "non-archival"]
+  topics: ["ai-ethics-society", "ai-governance-policy", "safety-security"]
+  disciplines: ["cs", "interdisciplinary"]
+  note: "Workshop list is announced mid-year; individual CFP deadlines usually land late August–September."
+
+- name: "ICML 2027 workshops (AI & society)"
+  full_name: "ICML workshops on AI & society"
+  link: "https://icml.cc/"
+  location: "TBA"
+  deadlines:
+    - label: "Workshop papers"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "workshop"
+  submission_types: ["papers", "non-archival"]
+  topics: ["ai-ethics-society", "safety-security"]
+  disciplines: ["cs", "interdisciplinary"]
+  note: "Workshop CFPs are announced per-cycle, typically with spring deadlines."
+
+- name: "ACL 2027 workshops (NLP & society)"
+  full_name: "ACL workshops on NLP, ethics & society"
+  link: "https://www.aclweb.org/portal/"
+  location: "TBA"
+  deadlines:
+    - label: "Workshop papers"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "workshop"
+  submission_types: ["papers", "non-archival"]
+  topics: ["ai-ethics-society", "media-communication"]
+  disciplines: ["cs", "interdisciplinary"]
+  note: "Workshop CFPs are announced per-cycle."
+
+- name: "Data & Society Academic Workshop"
+  full_name: "Data & Society Research Institute — academic workshop"
+  link: "https://datasociety.net/announcements/"
+  location: "New York, NY, USA / online"
+  deadlines:
+    - label: "Workshop applications"
+      date: "TBA"
+      timezone: "America/New_York"
+  venue_type: "workshop"
+  submission_types: ["extended abstracts", "non-archival"]
+  topics: ["ai-ethics-society", "platform-internet-governance", "media-communication"]
+  disciplines: ["social-science", "humanities", "interdisciplinary"]
+  note: "No call currently open (the March 2026 workshop's call closed Dec 2025). Calls appear on the announcements page, often in the fall."
+
+- name: "AIES 2027 Doctoral Consortium"
+  full_name: "AAAI/ACM AIES Doctoral Consortium"
+  link: "https://www.aies-conference.com/"
+  location: "TBA"
+  deadlines:
+    - label: "Applications"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "workshop"
+  submission_types: ["extended abstracts", "non-archival"]
+  topics: ["ai-ethics-society"]
+  disciplines: ["cs", "social-science", "interdisciplinary"]
+  note: "The application deadline usually tracks the main AIES paper cycle."

@@ -1,0 +1,16 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Python (used only for the CI validation script)
+__pycache__/
+*.pyc
+.venv/
+
+# Node (only if someone adds tooling later)
+node_modules

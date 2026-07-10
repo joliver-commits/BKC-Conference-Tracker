@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BKC AI Conference &amp; Convening Deadlines</title>
+  <meta name="description" content="Submission deadlines for AI-related conferences, workshops, and policy convenings relevant to internet &amp; society research. Maintained by the Berkman Klein Center community.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%8F%B3%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+  <!-- Dependencies, vendored locally (js-yaml 4.1.0, Luxon 3.4.4) so the site
+       has zero runtime reliance on third-party CDNs. -->
+  <script src="assets/vendor/js-yaml.min.js" defer></script>
+  <script src="assets/vendor/luxon.min.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <h1>AI Conference &amp; Convening Deadlines</h1>
+  <p class="tagline">
+    Submission deadlines for AI-related conferences, workshops, journals, and policy
+    convenings relevant to internet &amp; society research — spanning law, policy,
+    computer science, social science, and the humanities. Maintained by the
+    <a href="https://cyber.harvard.edu/">Berkman Klein Center</a> community.
+  </p>
+  <p class="header-actions">
+    <a class="btn btn-primary" id="contribute-link"
+       href="https://github.com/joliver-commits/BKC-Conference-Tracker/edit/main/data/conferences.yml">
+      ✎ To add or update a conference, send a pull request
+    </a>
+    <span class="export-group" id="export-group">
+      <a class="btn" id="ics-all" href="#" download="bkc-deadlines.ics">📅 iCal: all deadlines</a>
+      <details class="export-topics">
+        <summary class="btn">iCal by topic ▾</summary>
+        <ul id="ics-topic-list"></ul>
+      </details>
+    </span>
+  </p>
+  <p class="meta-line">
+    <span id="last-updated">Last updated: …</span>
+    · <span id="entry-count"></span>
+    · All countdowns update live. <abbr title="Anywhere on Earth, UTC−12">AoE</abbr> = Anywhere on Earth.
+  </p>
+</header>
+
+<main id="main">
+  <div id="error-banner" class="error-banner" role="alert" hidden></div>
+
+  <section class="filters" aria-label="Filters">
+    <div class="filters-header">
+      <h2>Filter</h2>
+      <button type="button" class="linklike" id="clear-filters">Clear all filters</button>
+      <div class="view-toggle" role="group" aria-label="View">
+        <button type="button" id="view-list-btn" class="toggle-btn" aria-pressed="true">List</button>
+        <button type="button" id="view-calendar-btn" class="toggle-btn" aria-pressed="false">Calendar</button>
+      </div>
+    </div>
+    <div class="filter-groups">
+      <fieldset id="filter-topic">
+        <legend>Topic</legend>
+        <div class="checkbox-list"></div>
+      </fieldset>
+      <fieldset id="filter-type">
+        <legend>Venue type</legend>
+        <div class="checkbox-list"></div>
+      </fieldset>
+      <fieldset id="filter-disc">
+        <legend>Discipline</legend>
+        <div class="checkbox-list"></div>
+      </fieldset>
+    </div>
+  </section>
+
+  <section id="list-view" aria-label="Deadlines list">
+    <div id="deadline-cards"></div>
+
+    <h2 id="tba-heading" class="section-heading">Deadline TBA — watch these venues</h2>
+    <p class="section-note">These venues have not yet announced their next call for papers or proposals.
+      Dates below note when the CFP typically appears, where known.</p>
+    <div id="tba-cards"></div>
+  </section>
+
+  <section id="calendar-view" aria-label="Deadlines calendar" hidden>
+    <div class="cal-toolbar">
+      <div class="cal-nav">
+        <button type="button" id="cal-prev" aria-label="Previous month">‹</button>
+        <button type="button" id="cal-today">Today</button>
+        <button type="button" id="cal-next" aria-label="Next month">›</button>
+      </div>
+      <h2 id="cal-title" aria-live="polite"></h2>
+      <label class="cal-events-toggle">
+        <input type="checkbox" id="cal-show-events" checked>
+        Show event dates
+      </label>
+    </div>
+    <div class="cal-legend">
+      <span><span class="legend-swatch legend-deadline"></span> deadline (colored by topic)</span>
+      <span><span class="legend-swatch legend-event"></span> conference / convening in session</span>
+      <span><span class="legend-swatch legend-past"></span> past deadline</span>
+    </div>
+    <table class="cal-grid" id="cal-grid">
+      <thead>
+        <tr>
+          <th scope="col">Mon</th><th scope="col">Tue</th><th scope="col">Wed</th>
+          <th scope="col">Thu</th><th scope="col">Fri</th><th scope="col">Sat</th><th scope="col">Sun</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="cal-popover" class="cal-popover" role="dialog" aria-modal="false" aria-label="Deadline details" hidden></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>
+    Data lives in a single YAML file:
+    <a href="https://github.com/joliver-commits/BKC-Conference-Tracker/blob/main/data/conferences.yml"><code>data/conferences.yml</code></a>.
+    See <a href="https://github.com/joliver-commits/BKC-Conference-Tracker/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+    for the schema and a template entry.
+  </p>
+  <p>
+    Design inspired by <a href="https://sec-deadlines.github.io/">sec-deadlines.github.io</a>.
+    Not an official list — always confirm dates on the venue's own site.
+  </p>
+</footer>
+</body>
+</html>
