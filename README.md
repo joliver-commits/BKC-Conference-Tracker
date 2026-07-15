@@ -95,6 +95,46 @@ preinstalled on most machines.
 Every later push to `main` redeploys automatically. All paths in the site are
 relative, so it works from a project subpath (`/repo/`) without configuration.
 
+## Weekly automated deadline check
+
+A scheduled workflow (`.github/workflows/weekly-deadline-check.yml`) runs every
+Monday at 13:00 UTC (9 AM US/Eastern during daylight saving; 8 AM in winter —
+GitHub cron is UTC-only) and can be triggered manually from the Actions tab
+("Run workflow"). It has two tiers, and **it never merges anything** — dates
+are exactly the kind of data that gets misread, so every proposed change goes
+through a pull request for human review.
+
+**Tier 1 — weekly review issue (works with zero setup).**
+`scripts/weekly_report.py` reads `data/conferences.yml` and opens an issue
+titled *"Weekly deadline review — {date}"* (closing the previous week's)
+listing: deadlines in the next 30 days with days remaining, deadlines that
+expired since the last run, every venue still marked TBA (flagging ones whose
+typical CFP month is *now*, based on the entry's note), and every line carrying
+a `# VERIFY` comment. It uses the built-in `GITHUB_TOKEN` — no configuration
+needed beyond the repo settings below.
+
+**Tier 2 — LLM verification pass (optional, needs an API key).**
+If an `ANTHROPIC_API_KEY` secret is configured, `scripts/weekly_llm_check.py`
+asks Claude (`claude-sonnet-4-6` with web search) to check the official CFP
+page of each venue that is TBA or flagged `# VERIFY` — capped at 15 venues per
+run to control cost. Verified dates are applied to `data/conferences.yml` on a
+branch `bot/weekly-deadline-update-{date}` and opened as a PR that lists every
+change with the URL it was verified against; dates from non-official sources
+(aggregators, cached pages, social media) keep a `# VERIFY` comment. The
+edited file must pass the schema validator or the run rolls back and no PR is
+opened. If the secret is absent, the step logs a message and skips gracefully.
+
+*To enable Tier 2:* repo → **Settings → Secrets and variables → Actions →
+New repository secret**, name `ANTHROPIC_API_KEY`, value from
+[console.anthropic.com](https://console.anthropic.com/). Rough cost: ~15
+requests to Claude Sonnet 4.6 ($3/$15 per million tokens) with a few web
+searches each (~$10 per 1,000 searches) ≈ **$0.50–$1.50 per weekly run**, so
+on the order of a few dollars per month.
+
+*Required repo setting for the PR step:* **Settings → Actions → General →
+Workflow permissions** → select **"Read and write permissions"** and check
+**"Allow GitHub Actions to create and approve pull requests"**.
+
 ## Editing data going forward
 
 - **Where:** everything lives in [`data/conferences.yml`](data/conferences.yml).
@@ -114,8 +154,11 @@ assets/style.css               # styling — clean, academic, no framework
 assets/app.js                  # rendering, filters, countdowns, calendar, iCal
 data/conferences.yml           # ← THE data file; the only file most edits touch
 scripts/validate_yaml.py       # schema validator (run by CI, or locally)
-.github/workflows/validate.yml # runs the validator on PRs
-tests/                         # AoE countdown-math test (Playwright)
+scripts/weekly_report.py       # Tier 1: weekly review issue (no API key)
+scripts/weekly_llm_check.py    # Tier 2: Claude + web search verification → PR
+.github/workflows/validate.yml # validator + tests on PRs
+.github/workflows/weekly-deadline-check.yml  # Monday cron, both tiers
+tests/                         # Playwright site test + weekly-report test
 CONTRIBUTING.md                # schema reference + template entry
 ```
 

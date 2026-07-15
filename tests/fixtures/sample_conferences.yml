@@ -1,0 +1,49 @@
+# Fixture for tests/test_weekly_report.py — do not use as real data.
+# The test pins "now" to 2026-07-13T12:00:00Z, so relative to that clock:
+#   * Upcoming Conf's deadline is ~10 days away  → "next 30 days" section
+#   * Expired Conf's deadline passed 3 days ago  → "expired since last run"
+#   * Far Conf's deadline is ~200 days away      → appears in neither
+#   * TBA Conf mentions July                     → flagged "window may be open"
+
+- name: "Upcoming Conf 2026"
+  full_name: "Conference on Upcoming Things"
+  link: "https://example.org/upcoming"
+  deadlines:
+    - label: "Full paper"
+      date: "2026-07-23 23:59"
+      timezone: "AoE"
+  venue_type: "conference"
+  submission_types: ["papers"]
+  topics: ["ai-ethics-society"]
+  disciplines: ["cs"]
+
+- name: "Expired Conf 2026"
+  link: "https://example.org/expired"
+  deadlines:
+    - label: "Abstract"
+      date: "2026-07-10"
+      timezone: "UTC"
+  venue_type: "workshop"
+  topics: ["law-regulation"]
+  disciplines: ["law"]
+
+- name: "Far Conf 2027"
+  link: "https://example.org/far"
+  deadlines:
+    - label: "Papers"
+      date: "2027-01-30 23:59"   # VERIFY — fixture flag, checked by the test
+      timezone: "America/New_York"
+  venue_type: "conference"
+  topics: ["privacy-surveillance"]
+  disciplines: ["policy"]
+
+- name: "TBA Conf"
+  link: "https://example.org/tba"
+  deadlines:
+    - label: "Submissions"
+      date: "TBA"
+      timezone: "AoE"
+  venue_type: "symposium"
+  topics: ["digital-humanities"]
+  disciplines: ["humanities"]
+  note: "CFP typically opens in July."

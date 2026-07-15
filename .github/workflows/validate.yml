@@ -9,11 +9,13 @@ on:
     paths:
       - "data/**"
       - "scripts/**"
+      - "tests/**"
   push:
     branches: [main]
     paths:
       - "data/**"
       - "scripts/**"
+      - "tests/**"
 
 jobs:
   validate:
@@ -25,3 +27,4 @@ jobs:
           python-version: "3.12"
       - run: pip install pyyaml
       - run: python scripts/validate_yaml.py
+      - run: python tests/test_weekly_report.py

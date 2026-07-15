@@ -1,0 +1,81 @@
+name: Weekly deadline check
+
+# Two-tier weekly review. This workflow NEVER merges anything:
+#   Tier 1 (always runs, zero setup): opens/rotates a "Weekly deadline review"
+#     issue summarizing upcoming/expired/TBA deadlines and # VERIFY flags.
+#   Tier 2 (only if the ANTHROPIC_API_KEY secret is configured): asks Claude
+#     (with web search) to check TBA/# VERIFY venues, then opens a pull request
+#     with any verified date changes for HUMAN review.
+#
+# One-time repo settings needed for the PR step:
+#   Settings → Actions → General → Workflow permissions →
+#     "Read and write permissions" + "Allow GitHub Actions to create and
+#     approve pull requests".
+
+on:
+  schedule:
+    # GitHub cron runs in UTC only. 13:00 UTC = 09:00 US/Eastern during
+    # daylight saving time (EDT, roughly Mar–Nov); during standard time (EST)
+    # this fires at 08:00 Eastern. Close enough for a weekly digest — adjust
+    # to "0 14 * * 1" each November if the exact hour matters.
+    - cron: "0 13 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-deadline-check
+  cancel-in-progress: false
+
+jobs:
+  weekly-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml anthropic
+
+      - name: "Tier 1: open weekly review issue (closes last week's)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/weekly_report.py
+
+      - name: "Tier 2: verify TBA/# VERIFY venues via Claude + web search"
+        env:
+          # Add this under Settings → Secrets and variables → Actions to
+          # enable Tier 2. The script exits 0 with a log message if unset.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/weekly_llm_check.py
+
+      - name: "Tier 2: open pull request with proposed changes"
+        # proposed-changes.md only exists when Tier 2 found verified updates
+        # that survived schema validation.
+        if: ${{ hashFiles('proposed-changes.md') != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BRANCH="bot/weekly-deadline-update-$(date -u +%F)"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add data/conferences.yml
+          git commit -m "Weekly deadline update proposal ($(date -u +%F))" \
+            -m "Automated proposal — verify dates against linked sources before merging."
+          git push -u origin "$BRANCH" --force
+          # Reuse an existing open PR for this branch if one exists.
+          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q OPEN; then
+            gh pr edit "$BRANCH" --body-file proposed-changes.md
+          else
+            gh pr create \
+              --title "Weekly deadline update proposal ($(date -u +%F))" \
+              --body-file proposed-changes.md
+          fi
