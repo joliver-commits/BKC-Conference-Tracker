@@ -59,6 +59,7 @@ def check_date(value):
 
 def main():
     problems = []
+    warnings = []
     try:
         raw = yaml.safe_load(DATA.read_text())
     except yaml.YAMLError as e:
@@ -91,6 +92,13 @@ def main():
         for d in e.get("disciplines") or []:
             if d not in DISCIPLINES:
                 problems.append(f"{where}: unknown discipline '{d}' (allowed: {sorted(DISCIPLINES)}).")
+        # submission_types feeds the "Output type" filter. Missing is a warning,
+        # not an error — the entry just won't match any output-type filter.
+        st = e.get("submission_types")
+        if not st:
+            warnings.append(f"{where}: no 'submission_types' — add one so the Output-type filter can match this venue.")
+        elif not isinstance(st, list) or not all(isinstance(v, str) for v in st):
+            problems.append(f"{where}: 'submission_types' must be a list of strings.")
         for ev_field in ("event_start", "event_end"):
             v = e.get(ev_field)
             if v is not None and not check_date(v):
@@ -120,6 +128,11 @@ def main():
                     f"'{dl.get('timezone')}' — use AoE, UTC, or an IANA name like America/New_York."
                 )
 
+    if warnings:
+        print(f"{len(warnings)} warning(s) (not fatal):")
+        for w in warnings:
+            print(f"  ⚠ {w}")
+        print()
     if problems:
         print(f"{len(problems)} problem(s) in {DATA.name}:\n")
         for p in problems:

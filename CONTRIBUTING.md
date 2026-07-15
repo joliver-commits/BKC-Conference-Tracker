@@ -59,7 +59,7 @@ tells you exactly which entry and field to fix.
 | `deadlines[].date` | ✅ | `"YYYY-MM-DD HH:mm"`, `"YYYY-MM-DD"` (treated as 23:59), or `"TBA"`. |
 | `deadlines[].timezone` | ✅ unless TBA | `AoE` (Anywhere on Earth = UTC−12, the academic default), `UTC`, or an IANA zone name. |
 | `venue_type` | – | See vocabulary below. |
-| `submission_types` | – | Free-ish list; common values below. Shown as small tags. |
+| `submission_types` | – (warned if absent) | Free-ish list; common values below. Shown as small tags and drives the **Output type** filter: `papers`, `panels`, `posters`, `extended abstracts`, and `workshops` each get their own checkbox; everything else (tutorials, demos, non-archival, proposals, presentations, …) matches the "Other" checkbox, though cards and popovers always show the exact values. |
 | `topics` | – | Drives the topic filter, card colors, and per-topic iCal feeds. |
 | `disciplines` | – | Drives the discipline filter. |
 | `note` | – | One sentence of free text (typical CFP month, non-archival status, etc.). |
@@ -80,7 +80,11 @@ tells you exactly which entry and field to fix.
 
 **Common submission types** (`submission_types`, not strictly validated):
 `papers` · `panels` · `posters` · `extended abstracts` · `tutorials` ·
-`demos` · `non-archival` · `proposals` · `workshops`
+`demos` · `non-archival` · `proposals` · `workshops` · `presentations`
+
+The first five plus `workshops` map to their own Output-type filter checkbox;
+any other value matches the "Other" checkbox. Please include
+`submission_types` on every entry — the validator warns when it's missing.
 
 Want a new topic tag? Open an issue or PR — tags are defined in one place in
 `assets/app.js` (`TOPICS`) with a matching color in `assets/style.css`
