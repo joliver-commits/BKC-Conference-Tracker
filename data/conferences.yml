@@ -21,7 +21,37 @@
 # -----------------------------------------------------------------------------
 # ACADEMIC CONFERENCES — AI ethics, fairness, HCI, computational social science
 # -----------------------------------------------------------------------------
+- name: "SXSW 2027"
+  full_name: "South by Southwest — PanelPicker (session proposals)"
+  link: "https://panelpicker.sxsw.com/"
+  location: "Austin, TX, USA"
+  event_start: "2027-03-15"
+  event_end: "2027-03-21"
+  deadlines:
+    - label: "PanelPicker proposal"
+      date: "2026-07-26 23:59"
+      timezone: "America/Los_Angeles"
+  venue_type: "policy-convening"
+  submission_types: ["panels", "presentations", "workshops"]
+  topics: ["ai-ethics-society", "media-communication", "platform-internet-governance"]
+  disciplines: ["interdisciplinary"]
+  note: "Community voting Aug 5–23, 2026; selection combines votes, evaluators, and staff."
 
+- name: "New Directions in Social Media Research 2026"
+  full_name: "New Directions in Social Media Research"
+  link: "https://sites.google.com/view/social-media-conf-cambridge/home"
+  location: "St John's College, Cambridge, UK"
+  event_start: "2026-12-07"
+  event_end: "2026-12-08"
+  deadlines:
+    - label: "Poster & symposium submissions"
+      date: "2026-08-02 23:59"
+      timezone: "Europe/London"   # VERIFY — site doesn't state a timezone
+  venue_type: "conference"
+  submission_types: ["posters", "panels"]
+  topics: ["ai-ethics-society", "media-communication", "ai-relationships-companions"]
+  disciplines: ["social-science", "interdisciplinary"]
+  note: "Youth, social media, AI & wellbeing focus; keynotes incl. Sonia Livingstone."
 - name: "FAccT 2027"
   full_name: "ACM Conference on Fairness, Accountability, and Transparency"
   link: "https://facctconference.org/2027/cfp.html"
