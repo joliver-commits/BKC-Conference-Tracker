@@ -45,10 +45,28 @@ const DISCIPLINES = {
   "interdisciplinary": "Interdisciplinary",
 };
 
-const SUBMISSION_TYPES = [
-  "papers", "panels", "posters", "extended abstracts",
-  "tutorials", "demos", "non-archival", "proposals", "workshops",
-];
+/* Output-type filter buckets. submission_types is free-ish text in the YAML;
+ * the six buckets below drive the "Output type" filter group. Rare values
+ * (tutorials, demos, non-archival, proposals, presentations, …) bucket into
+ * "other" for filtering, but cards and popovers always show the exact values. */
+const OUTPUT_TYPES = {
+  "papers": "Papers",
+  "panels": "Panels",
+  "posters": "Posters",
+  "extended-abstracts": "Extended abstracts",
+  "workshops": "Workshops",
+  "other": "Other",
+};
+
+/* Normalize a submission_types value to its filter bucket. */
+function outputKey(value) {
+  const s = String(value).trim().toLowerCase().replace(/\s+/g, "-");
+  return s in OUTPUT_TYPES && s !== "other" ? s : "other";
+}
+
+function outputKeysFor(conf) {
+  return (conf.submission_types || []).map(outputKey);
+}
 
 /* Topic → CSS color (matches --c-* custom properties in style.css). */
 function topicColor(topic) {
@@ -167,6 +185,7 @@ function matchesFilters(conf, sel) {
     [sel.topic, conf.topics || []],
     [sel.type, conf.venue_type ? [conf.venue_type] : []],
     [sel.disc, conf.disciplines || []],
+    [sel.output, outputKeysFor(conf)],
   ];
   return groups.every(([selected, values]) => {
     if (selected.size === 0) return true;            // group inactive → all pass
@@ -183,6 +202,7 @@ const state = {
   topic: new Set(),
   type: new Set(),
   disc: new Set(),
+  output: new Set(),
   month: null,                  // "yyyy-MM" or null = current month
   showEvents: true,
 };
@@ -195,6 +215,7 @@ function readHash() {
   state.topic = setFrom("topic", TOPICS);
   state.type = setFrom("type", VENUE_TYPES);
   state.disc = setFrom("disc", DISCIPLINES);
+  state.output = setFrom("output", OUTPUT_TYPES);
   const m = params.get("month");
   state.month = m && /^\d{4}-\d{2}$/.test(m) ? m : null;
   state.showEvents = params.get("events") !== "0";
@@ -206,6 +227,7 @@ function writeHash() {
   if (state.topic.size) params.set("topic", [...state.topic].join(","));
   if (state.type.size) params.set("type", [...state.type].join(","));
   if (state.disc.size) params.set("disc", [...state.disc].join(","));
+  if (state.output.size) params.set("output", [...state.output].join(","));
   if (state.month) params.set("month", state.month);
   if (!state.showEvents) params.set("events", "0");
   const h = params.toString();
@@ -471,6 +493,10 @@ function openPopover(anchor, it) {
       `Event: ${it.event.start.toFormat("LLL d")} – ${it.event.end.toFormat("LLL d, yyyy")}`,
       conf.location ? ` · ${conf.location}` : ""));
   }
+  if (conf.submission_types && conf.submission_types.length) {
+    pop.append(el("p", { class: "popover-outputs" },
+      "Accepts: " + conf.submission_types.join(" · ")));
+  }
   if (conf.note) pop.append(el("p", { class: "note" }, conf.note));
   pop.append(el("p", {}, el("a", { href: conf.link, rel: "noopener" }, "Open CFP / venue site →")));
 
@@ -576,7 +602,8 @@ function buildFilterGroup(containerId, vocab, stateSet, withDots) {
 }
 
 function syncFilterInputs() {
-  const groups = [["filter-topic", state.topic], ["filter-type", state.type], ["filter-disc", state.disc]];
+  const groups = [["filter-topic", state.topic], ["filter-type", state.type],
+    ["filter-disc", state.disc], ["filter-output", state.output]];
   groups.forEach(([id, set]) => {
     document.querySelectorAll(`#${id} input`).forEach((i) => { i.checked = set.has(i.value); });
   });
@@ -631,6 +658,7 @@ async function boot() {
   buildFilterGroup("filter-topic", TOPICS, state.topic, true);
   buildFilterGroup("filter-type", VENUE_TYPES, state.type, false);
   buildFilterGroup("filter-disc", DISCIPLINES, state.disc, false);
+  buildFilterGroup("filter-output", OUTPUT_TYPES, state.output, false);
 
   document.getElementById("view-list-btn").addEventListener("click", () => setView("list"));
   document.getElementById("view-calendar-btn").addEventListener("click", () => setView("calendar"));
@@ -643,7 +671,7 @@ async function boot() {
     render();
   });
   document.getElementById("clear-filters").addEventListener("click", () => {
-    state.topic.clear(); state.type.clear(); state.disc.clear();
+    state.topic.clear(); state.type.clear(); state.disc.clear(); state.output.clear();
     syncFilterInputs();
     writeHash();
     render();
@@ -693,7 +721,7 @@ async function boot() {
 }
 
 /* Expose internals for testing (tests/ drives these via Playwright). */
-window.BKC = { zoneFor, parseDeadlineDate, formatCountdown, validateEntries, buildItems, matchesFilters, buildIcs, TOPICS, VENUE_TYPES, DISCIPLINES };
+window.BKC = { zoneFor, parseDeadlineDate, formatCountdown, validateEntries, buildItems, matchesFilters, buildIcs, outputKey, outputKeysFor, TOPICS, VENUE_TYPES, DISCIPLINES, OUTPUT_TYPES };
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", boot);

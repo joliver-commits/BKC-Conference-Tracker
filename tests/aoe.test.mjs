@@ -100,6 +100,40 @@ try {
   await page.locator('#filter-topic input[value="law-regulation"]').check();
   const hash = await page.evaluate(() => location.hash);
   assert(hash.includes("topic=law-regulation"), `filter persisted to URL hash (${hash})`);
+  await page.locator('#filter-topic input[value="law-regulation"]').uncheck();
+
+  console.log("Output-type filter:");
+  const ok = await page.evaluate(() => {
+    const bucket = BKC.outputKey("extended abstracts") === "extended-abstracts"
+      && BKC.outputKey("papers") === "papers"
+      && BKC.outputKey("tutorials") === "other"
+      && BKC.outputKey("non-archival") === "other";
+    const conf = { submission_types: ["papers", "demos"] };
+    const sel = (o) => ({ topic: new Set(), type: new Set(), disc: new Set(), output: new Set(o) });
+    return bucket
+      && BKC.matchesFilters(conf, sel(["papers"]))
+      && BKC.matchesFilters(conf, sel(["other"]))          // demos → other
+      && !BKC.matchesFilters(conf, sel(["posters"]))
+      && BKC.matchesFilters(conf, sel([]));                // inactive group passes
+  });
+  assert(ok, "bucketing + OR-within-group / AND-across-groups logic");
+
+  await page.locator('#filter-output input[value="panels"]').check();
+  const outHash = await page.evaluate(() => location.hash);
+  assert(outHash.includes("output=panels"), `output filter persisted to URL hash (${outHash})`);
+  const panelCards = await page.evaluate(() =>
+    document.querySelectorAll("#deadline-cards .card, #tba-cards .card").length);
+  assert(panelCards > 0 && panelCards < 25, `output=panels narrows the list (${panelCards} cards shown)`);
+
+  // Calendar view respects the output filter too: panels-only venues have no
+  // dated deadlines in Sept 2026, list vs calendar consistency checked below.
+  await page.locator("#view-calendar-btn").click();
+  const calItemsFiltered = await page.locator("#cal-grid .cal-item").count();
+  await page.locator('#filter-output input[value="panels"]').uncheck();
+  const calItemsAll = await page.locator("#cal-grid .cal-item").count();
+  assert(calItemsFiltered < calItemsAll,
+    `calendar respects output filter (${calItemsFiltered} filtered < ${calItemsAll} unfiltered)`);
+  await page.locator("#view-list-btn").click();
 
   // Calendar view renders a grid.
   await page.locator("#view-calendar-btn").click();

@@ -20,9 +20,11 @@ To add or fix a venue, edit that file and open a pull request — see
 - **List and calendar views** (toggle at the top; the choice is kept in the URL
   so views can be shared). The calendar shows deadlines color-coded by topic and,
   optionally, event dates as lighter bands — a "who's convening when" view.
-- **Filters** by topic, venue type, and discipline — OR within a group, AND
-  across groups — persisted in the URL hash so filtered views are shareable
-  (e.g. `#topic=law-regulation&type=policy-convening`).
+- **Filters** by topic, venue type, discipline, and output type (papers,
+  panels, posters, extended abstracts, workshops, other) — OR within a group,
+  AND across groups — persisted in the URL hash so filtered views are shareable
+  (e.g. `#topic=law-regulation&type=policy-convening` or `#output=posters,panels`).
+  Filters apply to both the list and calendar views.
 - **iCal export** for all deadlines or per-topic subsets.
 - **TBA section**: venues that haven't announced their next CFP stay visible in
   a "Deadline TBA — watch these venues" section instead of disappearing.
